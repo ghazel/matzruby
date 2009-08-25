@@ -787,7 +787,7 @@ mark_locations_array(x, n)
     }
 }
 
-inline void
+void
 rb_gc_mark_locations(start, end)
     VALUE *start, *end;
 {
@@ -1535,7 +1535,7 @@ garbage_collect()
 # ifdef nativeAllocA
   if (__stack_past (top, stack_limit)) {
   /* allocate a large frame to ensure app stack cannot grow into GC stack */
-    (volatile void*) nativeAllocA(__stack_depth((void*)stack_limit,(void*)top));
+    (volatile void*) nativeAllocA(__stack_depth((stackptr_t)stack_limit,(stackptr_t)top));
   }  
   garbage_collect_0(top);
 # else /* no native alloca() available */

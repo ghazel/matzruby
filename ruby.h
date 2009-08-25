@@ -87,6 +87,8 @@ typedef unsigned long VALUE;
 typedef unsigned long ID;
 #endif
 
+typedef unsigned char* stackptr_t;
+
 #ifdef __STDC__
 # include <limits.h>
 #else

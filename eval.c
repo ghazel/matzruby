@@ -10345,7 +10345,7 @@ timeofday()
 
 
 #define ADJ(addr) \
-   if ((size_t)((void *)addr - stkBase) < stkSize) addr=(void *)addr + stkShift
+   if ((size_t)((stackptr_t)addr - stkBase) < stkSize) addr=(stackptr_t)addr + stkShift
 
 static void
 thread_mark(th)
@@ -10353,7 +10353,7 @@ thread_mark(th)
 {
     struct FRAME *frame;
     struct BLOCK *block;
-    void *stkBase;
+    stackptr_t stkBase;
     ptrdiff_t stkShift;
     size_t stkSize;
 
@@ -10391,7 +10391,7 @@ thread_mark(th)
 #endif
     }
 
-    stkBase = (void *)th->stk_start;
+    stkBase = (stackptr_t)th->stk_start;
     stkSize = th->stk_len * sizeof(VALUE);
 #if STACK_GROW_DIRECTION == 0
     if (rb_gc_stack_grow_direction < 0)
@@ -10399,7 +10399,7 @@ thread_mark(th)
 #if STACK_GROW_DIRECTION <= 0
       stkBase -= stkSize;
 #endif
-    stkShift = (void *)th->stk_ptr - stkBase;
+    stkShift = (stackptr_t)th->stk_ptr - stkBase;
     
     frame = th->frame;
     while (frame && frame != top_frame) {
