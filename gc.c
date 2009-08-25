@@ -630,7 +630,11 @@ void rb_gc_wipe_stack(void)
   VALUE *sp = __sp();
   rb_gc_stack_end = sp;
 #if STACK_WIPE_METHOD == 1
-#warning clearing of "ghost references" from the call stack has been disabled
+# ifdef _MSC_VER
+#  pragma message ("clearing of 'ghost references' from the call stack has been disabled")
+# else
+#  warning clearing of "ghost references" from the call stack has been disabled
+# endif
 #elif STACK_WIPE_METHOD == 2  /* alloca ghost stack before clearing it */
   if (__stack_past(sp, stack_end)) {
     size_t bytes = __stack_depth((char *)stack_end, (char *)sp);
@@ -644,7 +648,11 @@ void rb_gc_wipe_stack(void)
 #endif
 }
 #else
-#warning clearing of "ghost references" from the call stack completely disabled
+# ifdef _MSC_VER
+#  pragma message ("clearing of 'ghost references' from the call stack completely disabled")
+# else
+#  warning clearing of "ghost references" from the call stack completely disabled
+# endif
 #endif
 #endif
 
