@@ -24,6 +24,7 @@ if "%1" == "--so-name" goto :soname
 if "%1" == "--enable-install-doc" goto :enable-rdoc
 if "%1" == "--disable-install-doc" goto :disable-rdoc
 if "%1" == "--extout" goto :extout
+if "%1" == "--enable-mbari-api" goto :mbari-api
 if "%1" == "-h" goto :help
 if "%1" == "--help" goto :help
   echo>> ~tmp~.mak 	"%1" \
@@ -80,6 +81,11 @@ goto :loop
   shift
   shift
 goto :loop
+:mbari-api
+  echo>> ~tmp~.mak 	"MBARI_API=1" \
+  shift
+  shift
+goto :loop
 :help
   echo Configuration:
   echo   --help                  display this help
@@ -92,6 +98,7 @@ goto :loop
   echo   --with-winsock2         link winsock2
   echo   --with-static-linked-ext link external modules statically
   echo   --enable-install-doc    install rdoc indexes during install
+  echo   --enable-mbari-api      enable API changes from the MBARI patches
   del ~tmp~.mak
 goto :exit
 :end

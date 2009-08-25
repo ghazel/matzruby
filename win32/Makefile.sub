@@ -212,6 +212,9 @@ $(CONFIG_H): $(MKFILES) $(srcdir)/win32/Makefile.sub
 !if defined(USE_WINSOCK2)
 #define USE_WINSOCK2 1
 !endif
+!if defined(MBARI_API)
+#define MBARI_API 1
+!endif
 #define STDC_HEADERS 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_SYS_STAT_H 1

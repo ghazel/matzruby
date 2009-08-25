@@ -50,6 +50,9 @@ RDOCTARGET = $(RDOCTARGET)
 !if defined(EXTOUT)
 EXTOUT = $(EXTOUT)
 !endif
+!if defined(MBARI_API)
+MBARI_API = $(MBARI_API)
+!endif
 <<
 
 -system-vars-: -osname- -runtime-
