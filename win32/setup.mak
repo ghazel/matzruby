@@ -53,6 +53,9 @@ EXTOUT = $(EXTOUT)
 !if defined(MBARI_API)
 MBARI_API = $(MBARI_API)
 !endif
+!if defined(STACK_WIPE_SITES)
+STACK_WIPE_SITES = $(STACK_WIPE_SITES)
+!endif
 <<
 
 -system-vars-: -osname- -runtime-

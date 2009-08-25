@@ -25,6 +25,7 @@ if "%1" == "--enable-install-doc" goto :enable-rdoc
 if "%1" == "--disable-install-doc" goto :disable-rdoc
 if "%1" == "--extout" goto :extout
 if "%1" == "--enable-mbari-api" goto :mbari-api
+if "%1" == "--with-wipe-sites" goto :wipe-sites
 if "%1" == "-h" goto :help
 if "%1" == "--help" goto :help
   echo>> ~tmp~.mak 	"%1" \
@@ -84,6 +85,10 @@ goto :loop
 :mbari-api
   echo>> ~tmp~.mak 	"MBARI_API=1" \
   shift
+goto :loop
+:wipe-sites
+  echo>> ~tmp~.mak 	"STACK_WIPE_SITES=%2" \
+  shift
   shift
 goto :loop
 :help
@@ -99,6 +104,7 @@ goto :loop
   echo   --with-static-linked-ext link external modules statically
   echo   --enable-install-doc    install rdoc indexes during install
   echo   --enable-mbari-api      enable API changes from the MBARI patches
+  echo   --with-wipe-sites       override default STACK_WIPES_SITES mask in rubysig.h
   del ~tmp~.mak
 goto :exit
 :end
