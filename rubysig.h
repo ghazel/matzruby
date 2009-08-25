@@ -78,10 +78,18 @@
 #endif
 
 #if (STACK_WIPE_SITES & 0x14) == 0x14
-#warning  wiping stack in CHECK_INTS makes wiping in loops redundant
+# ifdef _MSC_VER
+#  pragma message ("wiping stack in CHECK_INTS makes wiping in loops redundant")
+# else
+#  warning wiping stack in CHECK_INTS makes wiping in loops redundant
+# endif
 #endif
 #if (STACK_WIPE_SITES & 0x41) == 0x41
-#warning  wiping stack after thread save makes wiping on thread_switch redundant
+# ifdef _MSC_VER
+#  pragma message ("wiping stack after thread save makes wiping on thread_switch redundant")
+# else
+#  warning wiping stack after thread save makes wiping on thread_switch redundant
+# endif
 #endif
 
 #define STACK_WIPE_METHOD (STACK_WIPE_SITES>>13)
@@ -231,7 +239,11 @@ __defspfn("movq %%rsp, %0": "=r"(sp))
 __defspfn("mov %0, sp": "=r"(sp))
 #  else
 #   define __sp()  ((VALUE *)__builtin_alloca(0))
-#   warning No assembly version of __sp() defined for this CPU.
+#   ifdef _MSC_VER
+#    pragma message ("No assembly version of __sp() defined for this CPU.")
+#   else
+#    warning No assembly version of __sp() defined for this CPU.
+#   endif
 #  endif
 # else
 #  define __sp()  ((VALUE *)__builtin_alloca(0))
@@ -250,7 +262,11 @@ void *alloca ();
 # endif /* HAVE_ALLOCA_H */
 
 # if STACK_WIPE_SITES & 0x1000
-#  warning No assembly versions of __sp() defined for this compiler.
+#  ifdef _MSC_VER
+#   pragma message ("No assembly versions of __sp() defined for this compiler.")
+#  else
+#   warning No assembly versions of __sp() defined for this compiler.
+#  endif
 # endif
 # if HAVE_ALLOCA
 #  define __sp()  ((VALUE *)alloca(0))
@@ -259,7 +275,11 @@ void *alloca ();
 RUBY_EXTERN VALUE *__sp(void);
 #  if STACK_WIPE_SITES
 #   define STACK_WIPE_SITES 0
-#   warning Disabled Stack Wiping because there is no native alloca()
+#   ifdef _MSC_VER
+#    pragma message ("Disabled Stack Wiping because there is no native alloca()")
+#   else
+#    warning Disabled Stack Wiping because there is no native alloca()
+#   endif
 #  endif
 # endif
 #endif /* __GNUC__ */
