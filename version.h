@@ -25,7 +25,9 @@ RUBY_EXTERN const char *ruby_copyright;
 #define RUBY_BIRTH_MONTH 2
 #define RUBY_BIRTH_DAY 24
 
+#ifndef _WIN32_CONFIGURE
 #include "rubysig.h"
+#endif
 
 #define string_arg(s) #s
 

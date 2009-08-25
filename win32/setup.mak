@@ -116,6 +116,7 @@ int main(int argc, char **argv)
 
 -version-: nul
 	@$(CPP) -I$(srcdir) <<"Creating $(MAKEFILE)" >>$(MAKEFILE)
+#define _WIN32_CONFIGURE
 #include "version.h"
 MAJOR = RUBY_VERSION_MAJOR
 MINOR = RUBY_VERSION_MINOR
